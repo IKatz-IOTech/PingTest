@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PingTest", "PingTest\PingTest.csproj", "{F149C736-B410-4D62-A0B2-F895C0665F5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F149C736-B410-4D62-A0B2-F895C0665F5D}.Debug|x64.ActiveCfg = Debug|x64
+		{F149C736-B410-4D62-A0B2-F895C0665F5D}.Debug|x64.Build.0 = Debug|x64
+		{F149C736-B410-4D62-A0B2-F895C0665F5D}.Release|x64.ActiveCfg = Release|x64
+		{F149C736-B410-4D62-A0B2-F895C0665F5D}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B503E5B5-9A3F-4620-9CB6-A066D4EDC42C}
+	EndGlobalSection
+EndGlobal
