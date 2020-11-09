@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
@@ -14,6 +12,7 @@ namespace PingTest
     {
         #region Fields
 
+        private static          bool                    _canWriteFile = true;
         private const           string                  _Path             = @"C:\Users\Itamar Katz\Desktop\pings\PingLog.txt";
         private const           string                  _NameOrAddress    = @"213.57.2.5";
         private const           int                     _RequrentTimeMs   = 1000;
@@ -27,25 +26,11 @@ namespace PingTest
 
         #endregion Fields
 
-        // private static void Main()
-        // {
-        //     // System.Globalization.CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        //     foreach ( double d in Enumerable.Range(0, 100).Select(x=> (double)x/100) ) {
-        //         Console.WriteLine($"{d}\t| \t{d:P4}");
-        //         Task.Delay(5).Wait();
-        //     }
-        //     // for ( double i = 0; i < 1000; i = i+10 ) {
-        //     //     double j = 1 / ( 1000 - i );
-        //     //     Console.WriteLine($"i:{i}\t|\tj:{j}\t|\t{j*10:P3}%");
-        //     //     Task.Delay(5).Wait();
-        //     // }
-        // }
         private static void Main()
         {
             if ( !File.Exists(_Path) ) {
-                Console.WriteLine($"Error: File does not exist. File is: {_Path}");
-
-                return;
+                _canWriteFile = false;
+                Console.WriteLine($"Error. File does not exist. File is: {_Path}");
             }
 
             _tokenSource = new CancellationTokenSource();
@@ -192,6 +177,11 @@ namespace PingTest
 
         private static void WriteToFile()
         {
+            if(!_canWriteFile){                 
+                Console.WriteLine($"Error. File does not exist. File is: {_Path}");
+
+                return;
+            }
             lock ( fileLocker ) {
                 try {
                     using StreamWriter streamWriter = File.AppendText(_Path);
