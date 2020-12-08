@@ -12,8 +12,8 @@ namespace PingTest
     {
         #region Fields
 
-        private static          bool                    _canWriteFile = true;
-        private const           string                  _Path             = @"C:\Users\Itamar Katz\Desktop\pings\PingLog.txt";
+        // private static          bool                    _canWriteFile = true;
+        // private const           string                  _Path             = @"C:\Users\Itamar Katz\Desktop\pings\PingLog.txt";
         private const           string                  _NameOrAddress    = @"213.57.2.5";
         private const           int                     _RequrentTimeMs   = 1000;
         private const           int                     _BasicTimeoutMs   = 500;
@@ -28,10 +28,10 @@ namespace PingTest
 
         private static void Main()
         {
-            if ( !File.Exists(_Path) ) {
-                _canWriteFile = false;
-                Console.WriteLine($"Error. File does not exist. File is: {_Path}");
-            }
+            // if ( !File.Exists(_Path) ) {
+            //     _canWriteFile = false;
+            //     Console.WriteLine($"Error. File does not exist. File is: {_Path}");
+            // }
 
             _tokenSource = new CancellationTokenSource();
             _stopwatch   = Stopwatch.StartNew();
@@ -78,10 +78,10 @@ namespace PingTest
                                                                 Exit();
 
                                                                 break;
-                                                            case ConsoleKey.W :
-                                                                WriteToFile();
+                                                            // case ConsoleKey.W :
+                                                            //     WriteToFile();
 
-                                                                break;
+                                                                // break;
                                                             default :
                                                                 PrintUsage();
 
@@ -95,19 +95,20 @@ namespace PingTest
                                             },
                                             _tokenSource.Token);
 
-            Task t3 = Task.Factory.StartNew(async () =>
-                                            {
-                                                while ( true ) {
-                                                    if ( !_tokenSource.IsCancellationRequested ) {
-                                                        WriteToFile();
-                                                    }
-
-                                                    await Task.Delay(_ToFileDelay);
-                                                }
-                                            },
-                                            _tokenSource.Token);
-
-            Task.WaitAll(t1, t2, t3);
+            // Task t3 = Task.Factory.StartNew(async () =>
+            //                                 {
+            //                                     while ( true ) {
+            //                                         if ( !_tokenSource.IsCancellationRequested ) {
+            //                                             // WriteToFile();
+            //                                         }
+            //
+            //                                         await Task.Delay(_ToFileDelay);
+            //                                     }
+            //                                 },
+            //                                 _tokenSource.Token);
+            //
+            // Task.WaitAll(t1, t2, t3);
+            Task.WaitAll(t1, t2);
         }
 
         #region Control / Report
@@ -139,7 +140,7 @@ namespace PingTest
             Console.WriteLine();
 
             if ( input.Key == ConsoleKey.Y ) {
-                WriteToFile();
+                // WriteToFile();
                 Environment.Exit(0);
             }
 
@@ -169,33 +170,33 @@ namespace PingTest
             sb.AppendLine("\tC: Clear timers and restart");
             sb.AppendLine("\tH: Prints this usage");
             sb.AppendLine("\tE: End program");
-            sb.AppendLine("\tW: Write to file");
+            // sb.AppendLine("\tW: Write to file");
             Console.WriteLine(sb);
         }
 
         private static readonly object fileLocker = false;
 
-        private static void WriteToFile()
-        {
-            if(!_canWriteFile){                 
-                Console.WriteLine($"Error. File does not exist. File is: {_Path}");
-
-                return;
-            }
-            lock ( fileLocker ) {
-                try {
-                    using StreamWriter streamWriter = File.AppendText(_Path);
-                    streamWriter.WriteLine(GetTotalReport());
-                    streamWriter.Flush();
-                    // await using StreamWriter streamWriter = File.AppendText(_Path);
-                    // await streamWriter.WriteLineAsync(GetTotalReport());
-                    // await streamWriter.FlushAsync();
-                }
-                catch ( Exception exception ) {
-                    Console.WriteLine(exception.Message);
-                }
-            }
-        }
+        // private static void WriteToFile()
+        // {
+        //     if(!_canWriteFile){                 
+        //         Console.WriteLine($"Error. File does not exist. File is: {_Path}");
+        //
+        //         return;
+        //     }
+        //     lock ( fileLocker ) {
+        //         try {
+        //             using StreamWriter streamWriter = File.AppendText(_Path);
+        //             streamWriter.WriteLine(GetTotalReport());
+        //             streamWriter.Flush();
+        //             // await using StreamWriter streamWriter = File.AppendText(_Path);
+        //             // await streamWriter.WriteLineAsync(GetTotalReport());
+        //             // await streamWriter.FlushAsync();
+        //         }
+        //         catch ( Exception exception ) {
+        //             Console.WriteLine(exception.Message);
+        //         }
+        //     }
+        // }
 
         #endregion Control / Report
 
